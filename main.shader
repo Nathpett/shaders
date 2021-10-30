@@ -1,6 +1,4 @@
 float rect(vec2 _st, vec2 pos, vec2 wh, float edge_blur){
-    
-
     //float t = step(pos.y, 1.0 - _st.y);
     //float l = step(pos.x, _st.x);
     //float b = step(1.0 - wh.y-pos.y, _st.y);
