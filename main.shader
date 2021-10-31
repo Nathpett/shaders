@@ -26,3 +26,56 @@ float rect_b(vec2 st, vec2 ulim, vec2 llim){
 
     return bl.x * bl.y * tr.x * tr.y;
 }
+
+void piet_mondrian(){
+    //Draws aproximation of Piet Mondrian - Tableau (1921).
+    //Proportion and colors are off, but I didn't take exact measurements and that wasn't the point of this task.
+    
+    vec2 st = gl_FragCoord.xy/u_resolution.xy * vec2(1.3, 1.0);
+	
+	//line weight
+    float l = 0.03;
+    
+    //normalized coordnates of "row" dividers
+    float r0 = 0.1;
+    float r1 = 0.6;
+    float r2 = 0.8;
+	float r3 = 1.0;
+    
+    // normalized coordinates of "column" dividers
+    float c1 = 0.05;
+    float c2 = 0.2;
+    float c3 = 0.65;
+    float c4 = 0.95;
+    
+    vec3 r = vec3(0.555,0.164,0.132);
+    vec3 b = vec3(0.107,0.189,0.555);
+    vec3 y = vec3(0.890,0.834,0.329);
+    vec3 w = vec3(0.880,0.849,0.756);
+    vec3 c = vec3(0.0);
+    
+    c += w * rect(st, vec2(0.0, 0.0), vec2(c2, r1));
+    
+    c += r * rect(st, vec2(0.0, r1 + l), vec2(c1, r2));
+    c += r * rect(st, vec2(0.0, r2 + l), vec2(c1, r3));
+    
+    c += r * rect(st, vec2(c1 + l, r1 + l), vec2(c2, r2));
+    c += r * rect(st, vec2(c1 + l, r2 + l), vec2(c2, r3));
+    
+    c += w * rect(st, vec2(c2 + l, 0.0), vec2(c3, r0));
+    c += w * rect(st, vec2(c2 + l, r0 + l), vec2(c3, r1));
+    c += w * rect(st, vec2(c2 + l, r1 + l), vec2(c3, r2));
+    c += w * rect(st, vec2(c2 + l, r2 + l), vec2(c3, r3));
+    
+    c += b * rect(st, vec2(c3 + l, 0.0), vec2(c4, r0));
+    c += w * rect(st, vec2(c3 + l, r0 + l), vec2(c4, r1));
+    c += w * rect(st, vec2(c3 + l, r1 + l), vec2(c4, r2));
+    c += w * rect(st, vec2(c3 + l, r2 + l), vec2(c4, r3));
+    
+    c += b * rect(st, vec2(c4 + l, 0.0), vec2(1.0, r0));
+    c += w * rect(st, vec2(c4 + l, r0 + l), vec2(1.0, r1));
+    c += y * rect(st, vec2(c4 + l, r1 + l), vec2(1.0, r2));
+    c += y * rect(st, vec2(c4 + l, r2 + l), vec2(1.0, r3));
+    
+    gl_FragColor = vec4(c,1.0);
+}
