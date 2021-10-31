@@ -28,7 +28,7 @@ float rect_b(vec2 st, vec2 ulim, vec2 llim){
 }
 
 void piet_mondrian(){
-    //Draws aproximation of Piet Mondrian - Tableau (1921).
+    //Draws aproximation of Piet Mondrian's Tableau (1921).
     //Proportion and colors are off, but I didn't take exact measurements and that wasn't the point of this task.
     
     vec2 st = gl_FragCoord.xy/u_resolution.xy * vec2(1.3, 1.0);
