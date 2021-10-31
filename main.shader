@@ -16,7 +16,7 @@ float rect_a(vec2 _st, vec2 pos, vec2 wh, float edge_blur){
     return tlbr.x * tlbr.y * tlbr.w * tlbr.z;
 }
 
-float rect_b(vec2 st, vec2 ulim, vec2 llim){
+float rect(vec2 st, vec2 ulim, vec2 llim){
     // simple rect
     // ulim --- x y coordinates at which the rectangle starts
     // llim --- xy coordinates at which the rectangle stops 
