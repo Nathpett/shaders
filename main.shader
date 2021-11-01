@@ -27,6 +27,23 @@ float rect(vec2 st, vec2 ulim, vec2 llim){
     return bl.x * bl.y * tr.x * tr.y;
 }
 
+float circle(in vec2 _st, in float _radius, in vec2 _center){
+    vec2 dist = _center - _st;
+    return 1. - smoothstep(_radius-(_radius*0.01),
+                		_radius+(_radius*0.01),
+                      	dot(dist, dist) * 4.0);
+}
+
+float circle_prod(in vec2 _st, in float _radius, in vec2 _c1, in vec2 _c2){
+    vec2 dist_1 = _c1 - _st;
+    vec2 dist_2 = _c2 - _st;
+    float pct = dot(dist_1, dist_1) * 
+        dot(dist_2, dist_2) * 16.0;
+    return 1. - smoothstep(_radius-(_radius*0.01),
+                		_radius+(_radius*0.01),
+                      	pct);
+}
+
 void piet_mondrian(){
     //Draws aproximation of Piet Mondrian's Tableau (1921).
     //Proportion and colors are off, but I didn't take exact measurements and that wasn't the point of this task.
