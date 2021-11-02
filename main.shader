@@ -45,6 +45,24 @@ float circle_prod(in vec2 _st, in float _radius, in vec2 _c1, in vec2 _c2){
                       	pct);
 }
 
+float flower_plot(in float f, in float pct, in float weight){
+  return  smoothstep( pct-(pct * weight), pct, f) -
+          smoothstep( pct, pct+(pct * weight), f);
+}
+
+float flower(in vec2 _st, in float n, in float a_offset){
+    vec2 pos = vec2(0.5)-_st;
+
+    float r = length(pos)*2.0;
+    float a = atan(pos.y,pos.x) + a_offset;
+
+    float f = 0.2 + sin(a*n);
+    
+    return flower_plot(f, r, 0.02);
+    //return 1.0 - smoothstep(f, f+0.02, r);
+}
+
+
 void piet_mondrian(){
     //Draws aproximation of Piet Mondrian's Tableau (1921).
     //Proportion and colors are off, but I didn't take exact measurements and that wasn't the point of this task.
