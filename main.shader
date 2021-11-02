@@ -35,6 +35,7 @@ float circle(in vec2 _st, in float _radius, in vec2 _center){
 }
 
 float circle_prod(in vec2 _st, in float _radius, in vec2 _c1, in vec2 _c2){
+    
     vec2 dist_1 = _c1 - _st;
     vec2 dist_2 = _c2 - _st;
     float pct = dot(dist_1, dist_1) * 
