@@ -63,7 +63,7 @@ float flower(in vec2 _st, in float n, in float a_offset){
 }
 
 float d_field_shape(in vec2 st, in int n_sides){
-    #use for making distance fields of regular polygons of n sides
+    //use for making distance fields of regular polygons of n sides
     
     #define PI 3.14159265359
     #define TWO_PI 6.28318530718
