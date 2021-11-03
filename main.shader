@@ -62,6 +62,18 @@ float flower(in vec2 _st, in float n, in float a_offset){
     //return 1.0 - smoothstep(f, f+0.02, r);
 }
 
+float d_field_shape(in vec2 st, in int n_sides){
+    #use for making distance fields of regular polygons of n sides
+    
+    #define PI 3.14159265359
+    #define TWO_PI 6.28318530718
+
+    // Angle and radius from the current pixel
+    float a = atan(st.x,st.y) + PI;
+    float r = TWO_PI/float(n_sides);
+    
+    return cos(floor(0.5+a/r)*r-a)*length(st);
+}
 
 void piet_mondrian(){
     //Draws aproximation of Piet Mondrian's Tableau (1921).
