@@ -1,3 +1,14 @@
+//Transform matrix constructors
+mat2 scale(vec2 _scale){
+    return mat2(_scale.x,0.0,
+                0.0,_scale.y);
+}
+
+mat2 rotate2d(float _angle){
+    return mat2(cos(_angle),-sin(_angle),
+                sin(_angle),cos(_angle));
+}
+
 float rect_a(vec2 _st, vec2 pos, vec2 wh, float edge_blur){
 
     // pos --- top left position of rectangle
@@ -126,4 +137,8 @@ void piet_mondrian(){
     c += y * rect(st, vec2(c4 + l, r2 + l), vec2(1.0, r3));
     
     gl_FragColor = vec4(c,1.0);
+}
+
+float triforce(in vec2 _st, float _size){
+    return  min(step(d_field_shape(_st, 3), _size), 1.0 -step(d_field_shape(_st * rotate2d(TWO_PI * 0.5), 3), _size/2.));
 }
