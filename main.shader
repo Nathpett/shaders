@@ -9,6 +9,15 @@ mat2 rotate2d(float _angle){
                 sin(_angle),cos(_angle));
 }
 
+//Random functions 
+float random(in float x){
+    return fract(sin(x)*43758.5453);
+}
+
+float random(in vec2 st){
+    return fract(sin(dot(st.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
+
 float rect_a(vec2 _st, vec2 pos, vec2 wh, float edge_blur){
 
     // pos --- top left position of rectangle
@@ -61,16 +70,16 @@ float flower_plot(in float f, in float pct, in float weight){
           smoothstep( pct, pct+(pct * weight), f);
 }
 
-float flower(in vec2 _st, in float n, in float a_offset){
+float flower(in vec2 _st, in float n, in float size, in float a_offset){
     vec2 pos = vec2(0.5)-_st;
 
     float r = length(pos)*2.0;
     float a = atan(pos.y,pos.x) + a_offset;
 
-    float f = 0.2 + sin(a*n);
+    float f = size + sin(a*n);
     
-    return flower_plot(f, r, 0.02);
-    //return 1.0 - smoothstep(f, f+0.02, r);
+    //return flower_plot(f, r, 0.02);
+    return 1.0 - smoothstep(f, f+0.02, r);
 }
 
 float d_field_shape(in vec2 st, in int n_sides){
