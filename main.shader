@@ -95,6 +95,26 @@ float d_field_shape(in vec2 st, in int n_sides){
     return cos(floor(0.5+a/r)*r-a)*length(st);
 }
 
+float flower_circ(in vec2 _st, in int n, in float circ_r, in float ring_r){
+    #define TWO_PI 6.28318530718
+    vec2 pos = vec2(0.5)-_st;
+
+    float r = length(pos)*2.0;
+    float a = atan(pos.y,pos.x) + TWO_PI/float(2*n);
+	
+    //round angle to closest nth angle.
+    float nth = TWO_PI/float(n);
+    a = floor(a / nth) * nth;
+    
+    // draw something at end of angle
+    vec2 origin = vec2(ring_r*cos(a), ring_r*sin(a));
+    float pnt = circle(pos, circ_r, origin);
+    
+
+    //return flower_plot(f, r, 0.02);
+    return 1.0 - smoothstep(pnt, pnt+0.02, ring_r);
+}
+
 void piet_mondrian(){
     //Draws aproximation of Piet Mondrian's Tableau (1921).
     //Proportion and colors are off, but I didn't take exact measurements and that wasn't the point of this task.
