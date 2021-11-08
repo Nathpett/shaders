@@ -115,6 +115,19 @@ float flower_circ(in vec2 _st, in int n, in float circ_r, in float ring_r){
     return 1.0 - smoothstep(pnt, pnt+0.02, ring_r);
 }
 
+float o(in vec2 _st){
+    float pct = circle(_st, 0.8, vec2(0.5);
+    pct -= circle(_st, 0.6, vec2(0.5));
+    return pct;
+}
+
+float x(in vec2 _st){
+    float thick = 0.05;
+    float pct = step(abs(_st.x - _st.y), thick);
+	pct += step(abs(1.0 - _st.x - _st.y), thick);    
+    return pct;
+}
+
 void piet_mondrian(){
     //Draws aproximation of Piet Mondrian's Tableau (1921).
     //Proportion and colors are off, but I didn't take exact measurements and that wasn't the point of this task.
