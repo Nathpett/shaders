@@ -116,7 +116,7 @@ float flower_circ(in vec2 _st, in int n, in float circ_r, in float ring_r){
 }
 
 float o(in vec2 _st){
-    float pct = circle(_st, 0.8, vec2(0.5);
+    float pct = circle(_st, 0.8, vec2(0.5));
     pct -= circle(_st, 0.6, vec2(0.5));
     return pct;
 }
@@ -125,6 +125,7 @@ float x(in vec2 _st){
     float thick = 0.05;
     float pct = step(abs(_st.x - _st.y), thick);
 	pct += step(abs(1.0 - _st.x - _st.y), thick);    
+	pct = min(pct, step(abs(_st.x - .5), 0.4));
     return pct;
 }
 
@@ -200,4 +201,29 @@ float sharingan(in vec2 _st, in int n){
     pnt = max(pnt, flower_circ(_st, n, .03, ring_r));
     
     return pnt;
+}
+
+void tictactoe() {
+    vec2 st = gl_FragCoord.xy/u_resolution;
+    vec2 st_tru = st;
+    vec3 color = vec3(0.0);
+	
+    vec2 scl = vec2(3.);
+    st *= scl;       // Scale up the space by 3
+    st = fract(st); // Wrap around 1.0
+    
+    vec2 b = step(vec2(0.04), st);
+	vec2 bb = step(vec2(0.04), 1. - st);
+    float pct = b.x * b.y * bb.x * bb.y;
+    
+    color = vec3(pct);
+    
+    float x_cel = floor(st_tru.x * scl.x); 
+    float y_cel = floor(st_tru.y * scl.y); 
+    if (mod(x_cel + y_cel, 2.) == 1.) {
+        color -= vec3(x(st));
+    } else {
+        color -= vec3(o(st));
+    }
+    gl_FragColor = vec4(color,1.0);
 }
