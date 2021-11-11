@@ -227,3 +227,15 @@ void tictactoe() {
     }
     gl_FragColor = vec4(color,1.0);
 }
+
+vec2 shuffle_bricks(vec2 _st, float _zoom){
+    _st *= _zoom;
+	
+    _st.x += step(1., mod(1. + _st.y,2.0)) * clamp(abs(4.*fract(u_time)-2.) - 1.0, -.5, .5);
+    _st.x += step(1., mod(_st.y,2.0)) * -clamp(abs(4.*fract(u_time)-2.) - 1.0, -.5, .5);
+    
+    _st.y += 2.* step(1., mod(1. + _st.x,2.0)) * clamp(abs(4.*fract(u_time -.25)-2.) - 1.0, -.5, .5);
+    _st.y += step(1., mod(_st.x,2.0)) * -2. * clamp(abs(4.*fract(u_time +.25)-2.) - 1.0, -.5, .5);
+    
+    return fract(_st);
+}
