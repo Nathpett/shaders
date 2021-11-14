@@ -186,23 +186,6 @@ float triforce(in vec2 _st, float _size){
     return  min(step(d_field_shape(_st, 3), _size), 1.0 -step(d_field_shape(_st * rotate2d(TWO_PI * 0.5), 3), _size/2.));
 }
 
-float sharingan(in vec2 _st, in int n){
-	#define TWO_PI 6.28318530718
-    float ring_r = 0.25;
-    float pnt = flower_circ(_st, n, .075, ring_r);
-    _st -= vec2(0.5);
-    _st = _st*rotate2d(0.4);
-    _st += vec2(0.5);
-    pnt -= flower_circ(_st, n, .075, ring_r);
-    pnt -= circle(_st, ring_r, vec2(0.5));
-    _st -= vec2(0.5);
-    _st = _st*rotate2d(-0.6);
-    _st += vec2(0.5);
-    pnt = max(pnt, flower_circ(_st, n, .03, ring_r));
-    
-    return pnt;
-}
-
 void tictactoe() {
     vec2 st = gl_FragCoord.xy/u_resolution;
     vec2 st_tru = st;
