@@ -1,0 +1,59 @@
+//tiled shapes that point to cursor 
+
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+uniform float u_time;
+
+#define PI 3.14159265359
+#define TWO_PI 6.28318530718
+
+float random (vec2 st) {
+    return fract(sin(dot(st.xy,
+                         vec2(12.9898,78.233)))*
+        43758.5453123);
+}
+
+mat2 rotate2d(float _angle){
+    return mat2(cos(_angle),-sin(_angle),
+                sin(_angle),cos(_angle));
+}
+
+float d_field_shape(in vec2 st, in int n_sides){
+    // Angle and radius from the current pixel
+    float a = atan(st.x,st.y) + PI;
+    float r = TWO_PI/float(n_sides);
+    
+    return cos(floor(0.5+a/r)*r-a)*length(st);
+}
+
+float point_to(vec2 v1, vec2 v2){
+    // returns angle between vectors...
+    
+    return acos(dot(normalize(v1), normalize(v2)));
+}
+
+void main() {
+    vec2 st = gl_FragCoord.xy/u_resolution.xy;
+	
+    float cell_ct = 20.0;
+    st *= cell_ct;
+    vec2 ipos = floor(st);
+ 
+    vec2 fpos = fract(st);
+
+    //
+    vec2 mouse = u_mouse.xy/u_resolution.xy * cell_ct;
+    vec2 c = mouse - ipos - vec2(0.5/ cell_ct);
+	float a = atan(c.x, c.y);
+    // make shape
+    fpos = fpos * 2. - 1.;
+    fpos *= rotate2d(a);
+	  float pct = step(d_field_shape(fpos, 3), 0.5);
+    
+    vec3 color = vec3(pct);
+    gl_FragColor = vec4(color,1.0);
+}
