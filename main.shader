@@ -18,6 +18,15 @@ mat2 rotate2d(float _angle){
 //    return _st;
 //}
 
+//better scale
+//vec2 scale(vec2 _st, vec2 _scale){
+//    _st -= 0.5;
+//    _st *= mat2(_scale.x,0.0,
+//                0.0,_scale.y);
+//    _st += 0.5;
+//    return _st;
+//}
+
 //Random functions 
 float random(in float x){
     return fract(sin(x)*43758.5453);
